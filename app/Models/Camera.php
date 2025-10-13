@@ -13,7 +13,7 @@ class Camera extends Model
         'camera_variant_id',
         'type_id',
         'category_id',
-        'sub_location_id',
+        'location_id',
         'noAsset',
         'name',
         'model',
@@ -21,7 +21,7 @@ class Camera extends Model
         'resolution',
         'ipAddress',
         'channel',
-        'coordinate',
+        'sub_location',
         'purpose',
         'images'
     ];
@@ -82,9 +82,9 @@ class Camera extends Model
         return $this->belongsTo(CameraCategory::class);
     }
 
-    public function subLocation()
+    public function location()
     {
-        return $this->belongsTo(SubLocation::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function cameraDetails()

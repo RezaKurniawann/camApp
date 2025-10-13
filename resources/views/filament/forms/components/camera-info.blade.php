@@ -129,20 +129,20 @@
             </div>
 
             {{-- Location --}}
-            @if($camera->subLocation)
+            @if($camera->location)
             <div class="border-gray-200 dark:border-gray-700" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid;">
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.875rem;">
                     <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600" style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; border-radius: 0.375rem; font-weight: 500; border: 1px solid;">
-                        📍 {{ $camera->subLocation->name }}
+                        📍 {{ $camera->location->name }}
                     </span>
-                    @if($camera->subLocation->location)
+                    @if($camera->location->company)
                     <span class="bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 border-yellow-200 dark:border-yellow-800" style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; border-radius: 0.375rem; font-weight: 500; border: 1px solid;">
-                        🏢 {{ $camera->subLocation->location->name }}
+                        🏢 {{ $camera->location->company->name }}
                     </span>
                     @endif
-                    @if($camera->subLocation->location->company)
+                    @if($camera->location->company)
                     <span class="bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800" style="display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; border-radius: 0.375rem; font-weight: 500; border: 1px solid;">
-                        🏭 {{ $camera->subLocation->location->company->name }}
+                        🏭 {{ $camera->location->company->region->name }}
                     </span>
                     @endif
                 </div>

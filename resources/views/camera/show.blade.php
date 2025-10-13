@@ -105,16 +105,16 @@
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Company</span>
                             <span class="text-gray-900">:
-                                {{ $camera->subLocation->location->company->name ?? 'N/A' }}</span>
+                                {{ $camera->location->company->name ?? 'N/A' }}</span>
                         </div>
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Location</span>
                             <span class="text-gray-900">:
-                                {{ $camera->subLocation->location->name ?? 'N/A' }}</span>
+                                {{ $camera->location->name ?? 'N/A' }}</span>
                         </div>
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Sub Location</span>
-                            <span class="text-gray-900">: {{ $camera->subLocation->name ?? 'N/A' }}</span>
+                            <span class="text-gray-900">: {{ $camera->sub_location ?? 'N/A' }}</span>
                         </div>
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Coordinate</span>
@@ -175,16 +175,16 @@
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Company</span>
                             <span class="text-gray-900">:
-                                {{ $camera->server->subLocation->location->company->name ?? 'N/A' }}</span>
+                                {{ $camera->server->location->company->name ?? 'N/A' }}</span>
                         </div>
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Location</span>
                             <span class="text-gray-900">:
-                                {{ $camera->server->subLocation->location->name ?? 'N/A' }}</span>
+                                {{ $camera->server->location->name ?? 'N/A' }}</span>
                         </div>
                         <div class="flex">
                             <span class="font-medium text-gray-700 w-40">Sub Location</span>
-                            <span class="text-gray-900">: {{ $camera->server->subLocation->name ?? 'N/A' }}</span>
+                            <span class="text-gray-900">: {{ $camera->server->sub_location ?? 'N/A' }}</span>
                         </div>
                     </div>
                 </div>

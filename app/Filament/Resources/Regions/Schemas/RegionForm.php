@@ -1,22 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\Companies\Schemas;
+namespace App\Filament\Resources\Regions\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
-use Filament\Forms\Components\Select;
 
-class CompanyForm
+class RegionForm
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Select::make('region_id')
-                    ->label('Region')
-                    ->relationship('region', 'name')
-                    ->searchable()
-                    ->preload(),
                 TextInput::make('code')
                     ->required(),
                 TextInput::make('name')

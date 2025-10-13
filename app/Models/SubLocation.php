@@ -11,11 +11,11 @@ class SubLocation extends Model {
         return $this->belongsTo(Location::class);
     }
 
-    public function servers() {
-        return $this->hasMany(Server::class);
-    }
+    // public function servers() {
+    //     return $this->hasMany(Server::class);
+    // }
 
-    public function cameras() {
-        return $this->hasMany(Camera::class);
-    }
+    // public function cameras() {
+    //     return $this->hasMany(Camera::class);
+    // }
 }

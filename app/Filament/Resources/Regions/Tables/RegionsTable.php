@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Companies\Tables;
+namespace App\Filament\Resources\Regions\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -10,7 +10,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CompaniesTable
+class RegionsTable
 {
     public static function configure(Table $table): Table
     {
@@ -19,9 +19,6 @@ class CompaniesTable
                 TextColumn::make('code')
                     ->searchable(),
                 TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('region.name')
-                    ->label('Region')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

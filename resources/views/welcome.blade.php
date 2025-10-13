@@ -56,9 +56,9 @@
                                         request('brands', []),
                                         request('variants', []),
                                         request('types', []),
+                                        request('regions', []),
                                         request('companies', []),
                                         request('locations', []),
-                                        request('sub_locations', []),
                                         request('categories', []),
                                     ])
                                         ->flatten()
@@ -237,6 +237,45 @@
                                 </div>
                             </div>
 
+                            <!-- Region Filter -->
+                            <div class="border-b border-gray-100">
+                                <button type="button"
+                                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-gray-800 bg-gray-50 hover:bg-gray-100 transition-colors filter-toggle"
+                                    data-target="regionFilter">
+                                    <span class="flex items-center gap-3">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Region</span>
+                                        @if (request('regions') && count(request('regions')) > 0)
+                                            <span
+                                                class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-white bg-blue-600 rounded-full">{{ count(request('regions')) }}</span>
+                                        @endif
+                                    </span>
+                                    <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200"
+                                        id="regionFilterIcon" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div id="regionFilter" class="px-3 pb-4 space-y-1 hidden filter-content">
+                                    @foreach ($regions as $region)
+                                        <label
+                                            class="flex items-center px-3 py-2.5 rounded-md hover:bg-blue-50 cursor-pointer transition-colors group">
+                                            <input type="checkbox" name="regions[]" value="{{ $region->id }}"
+                                                {{ in_array($region->id, request('regions', [])) ? 'checked' : '' }}
+                                                onchange="document.getElementById('filterForm').submit()"
+                                                class="rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
+                                            <span
+                                                class="ml-3 text-sm text-gray-700 group-hover:text-gray-900">{{ $region->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
                             <!-- Company Filter -->
                             <div class="border-b border-gray-100">
                                 <button type="button"
@@ -317,46 +356,6 @@
                                 </div>
                             </div>
 
-                            <!-- Sub Location Filter -->
-                            <div class="border-b border-gray-100">
-                                <button type="button"
-                                    class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-gray-800 bg-gray-50 hover:bg-gray-100 transition-colors filter-toggle"
-                                    data-target="subLocationFilter">
-                                    <span class="flex items-center gap-3">
-                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                                        </svg>
-                                        <span>Sub Location</span>
-                                        @if (request('sub_locations') && count(request('sub_locations')) > 0)
-                                            <span
-                                                class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-white bg-blue-600 rounded-full">{{ count(request('sub_locations')) }}</span>
-                                        @endif
-                                    </span>
-                                    <svg class="w-5 h-5 text-gray-400 transform transition-transform duration-200"
-                                        id="subLocationFilterIcon" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </button>
-                                <div id="subLocationFilter" class="px-3 pb-4 space-y-1 hidden filter-content">
-                                    @foreach ($subLocations as $subLocation)
-                                        <label
-                                            class="flex items-center px-3 py-2.5 rounded-md hover:bg-blue-50 cursor-pointer transition-colors group">
-                                            <input type="checkbox" name="sub_locations[]"
-                                                value="{{ $subLocation->id }}"
-                                                {{ in_array($subLocation->id, request('sub_locations', [])) ? 'checked' : '' }}
-                                                onchange="document.getElementById('filterForm').submit()"
-                                                class="rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
-                                            <span
-                                                class="ml-3 text-sm text-gray-700 group-hover:text-gray-900">{{ $subLocation->name }}</span>
-                                        </label>
-                                    @endforeach
-                                </div>
-                            </div>
-
                             <!-- Category Filter -->
                             <div>
                                 <button type="button"
@@ -411,8 +410,11 @@
                     <div id="infiniteScrollLoader" class="text-center py-8 hidden">
                         <div class="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-lg shadow-sm">
                             <svg class="animate-spin h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                    stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
                             </svg>
                             <span class="text-gray-700 font-medium">Loading more cameras...</span>
                         </div>
@@ -421,10 +423,13 @@
                     <!-- No More Results Message -->
                     <div id="noMoreResults" class="text-center py-8 hidden">
                         <div class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 rounded-lg">
-                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
                             </svg>
-                            <span class="text-gray-600 font-medium">All cameras loaded ({{ $totalCount }} total)</span>
+                            <span class="text-gray-600 font-medium">All cameras loaded ({{ $totalCount }}
+                                total)</span>
                         </div>
                     </div>
                 @else
@@ -549,34 +554,34 @@
         // Load more cameras
         async function loadMoreCameras() {
             if (isLoading || !hasMoreData) return;
-            
+
             isLoading = true;
             showLoadingIndicator();
-            
+
             try {
                 const params = getCurrentParams();
                 const separator = params ? '&' : '';
                 const url = `${window.location.pathname}?${params}${separator}offset=${currentOffset}&load_more=1`;
-                
+
                 const response = await fetch(url, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 const data = await response.json();
-                
+
                 // Check if there's content
                 if (data.html && data.html.trim().length > 0) {
                     // Append new cards to grid
                     const cameraGrid = document.getElementById('cameraGrid');
                     cameraGrid.insertAdjacentHTML('beforeend', data.html);
-                    
+
                     // Update offset for next load
                     currentOffset = data.nextOffset;
                     hasMoreData = data.hasMore;
-                    
+
                     // If no more data, show end message
                     if (!data.hasMore) {
                         showNoMoreResults();
@@ -585,7 +590,7 @@
                     hasMoreData = false;
                     showNoMoreResults();
                 }
-                
+
             } catch (error) {
                 console.error('Error loading more cameras:', error);
             } finally {
@@ -625,7 +630,7 @@
             // Check if user is near bottom of page (within 300px)
             const scrollPosition = window.innerHeight + window.scrollY;
             const pageHeight = document.documentElement.scrollHeight;
-            
+
             if (scrollPosition >= pageHeight - 300 && hasMoreData && !isLoading) {
                 loadMoreCameras();
             }

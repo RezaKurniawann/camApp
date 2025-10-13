@@ -21,7 +21,7 @@ class CameraCategoryResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-folder-open';
 
     protected static string | UnitEnum | null $navigationGroup = 'Data Management';
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 7;
 
     public static function form(Schema $schema): Schema
     {

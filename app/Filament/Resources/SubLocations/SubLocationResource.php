@@ -19,10 +19,13 @@ class SubLocationResource extends Resource
     protected static ?string $model = SubLocation::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-library';
-    
+
     protected static string | UnitEnum | null $navigationGroup = 'Data Management';
-    protected static ?int $navigationSort = 2;
-    
+    protected static ?int $navigationSort = 3;
+
+
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Schema $schema): Schema
     {
         return SubLocationForm::configure($schema);

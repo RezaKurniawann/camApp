@@ -35,6 +35,9 @@ class ServersTable
                     ->searchable(),
                 TextColumn::make('portUse')
                     ->label('Port Use')
+                    ->counts('cameras')
+                    ->sortable()
+                    ->alignCenter()
                     ->searchable(),
                 TextColumn::make('hddSize')
                     ->label('HDD Size')
@@ -50,14 +53,17 @@ class ServersTable
                     ->icon('heroicon-o-camera')
                     ->sortable()
                     ->alignCenter(),
-                TextColumn::make('subLocation.name')
+                TextColumn::make('sub_location')
                     ->label('Sub Location')
                     ->searchable(),
-                TextColumn::make('subLocation.location.name')
+                // TextColumn::make('location.name')
+                //     ->label('Location')
+                //     ->searchable(),
+                // TextColumn::make('location.company.name')
+                //     ->label('Company')
+                //     ->searchable(),
+                TextColumn::make('location.company.region.name')
                     ->label('Location')
-                    ->searchable(),
-                TextColumn::make('subLocation.location.company.name')
-                    ->label('Company')
                     ->searchable(),    
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -75,15 +81,15 @@ class ServersTable
                 SelectFilter::make('brand_id')
                     ->label('Brand')
                     ->relationship('brand', 'name'),
-                SelectFilter::make('sub_location_id')
-                    ->label('Sub Location')
-                    ->relationship('subLocation', 'name'),
                 SelectFilter::make('location_id')
                     ->label('Location')
-                    ->relationship('subLocation.location', 'name'),
+                    ->relationship('location', 'name'),
                 SelectFilter::make('company_id')
                     ->label('Company')
-                    ->relationship('subLocation.location.company', 'name'),  
+                    ->relationship('location.company', 'name'), 
+                SelectFilter::make('region_id')
+                    ->label('Region')
+                    ->relationship('location.company.region', 'name'), 
             ])
             ->recordActions([
                 ViewAction::make(),

@@ -59,21 +59,21 @@
                     <span class="text-gray-500 w-23 flex-shrink-0">Company</span>
                     <span class="text-gray-500">:</span>
                     <span
-                        class="text-gray-900 font-medium ml-2">{{ $camera->subLocation->location->company->name ?? 'N/A' }}</span>
+                        class="text-gray-900 font-medium ml-2">{{ $camera->location->company->name ?? 'N/A' }}</span>
                 </div>
 
                 <div class="flex">
                     <span class="text-gray-500 w-23 flex-shrink-0">Location</span>
                     <span class="text-gray-500">:</span>
                     <span
-                        class="text-gray-900 font-medium ml-2">{{ $camera->subLocation->location->name ?? 'N/A' }}</span>
+                        class="text-gray-900 font-medium ml-2">{{ $camera->location->name ?? 'N/A' }}</span>
                 </div>
 
                 <div class="flex">
                     <span class="text-gray-500 w-23 flex-shrink-0">Sub Location</span>
                     <span class="text-gray-500">:</span>
                     <span
-                        class="text-gray-900 font-medium ml-2">{{ $camera->subLocation->name ?? 'N/A' }}</span>
+                        class="text-gray-900 font-medium ml-2">{{ $camera->sub_location ?? 'N/A' }}</span>
                 </div>
 
                 @if ($camera->purpose)

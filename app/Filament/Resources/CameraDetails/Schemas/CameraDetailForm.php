@@ -35,7 +35,7 @@ class CameraDetailForm
                                 'cameraVariant',
                                 'category',
                                 'server',
-                                'subLocation.location.company'
+                                'location.company'
                             ])->find($get('camera_id'))
                             : null
                     ])

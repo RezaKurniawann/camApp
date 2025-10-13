@@ -9,7 +9,7 @@ use App\Models\CameraVariant;
 use App\Models\CameraType;
 use App\Models\Company;
 use App\Models\Location;
-use App\Models\SubLocation;
+use App\Models\Region;
 use App\Models\CameraCategory;
 use Illuminate\Http\Request;
 
@@ -22,9 +22,9 @@ class CameraCatalogController extends Controller
         $brands = Brand::all();
         $variants = CameraVariant::all();
         $types = CameraType::all();
-        $companies = Company::all();
-        $locations = Location::with('company')->get();
-        $subLocations = SubLocation::with('location')->get();
+        $regions = Region::all();
+        $companies = Company::with('region')->get();
+        $locations = Location::with('company.region')->get();
         $categories = CameraCategory::all();
 
         // Build camera query with filters
@@ -35,7 +35,7 @@ class CameraCatalogController extends Controller
             'cameraVariant',
             'type',
             'category',
-            'subLocation.location.company'
+            'location.company.region'
         ]);
 
         // Enhanced Search filter
@@ -48,6 +48,7 @@ class CameraCatalogController extends Controller
                     ->orWhere('model', 'like', "%{$search}%")
                     ->orWhere('ipAddress', 'like', "%{$search}%")
                     ->orWhere('purpose', 'like', "%{$search}%")
+                    ->orWhere('sub_location', 'like', "%{$search}%")
                     
                     // Brand
                     ->orWhereHas('brand', function ($subQ) use ($search) {
@@ -76,17 +77,17 @@ class CameraCatalogController extends Controller
                             ->orWhere('ipAddress', 'like', "%{$search}%");
                     })
                     
-                    // Sub Location
-                    ->orWhereHas('subLocation', function ($subQ) use ($search) {
-                        $subQ->where('name', 'like', "%{$search}%")
+                    // Location
+                    ->orWhereHas('location', function ($locQ) use ($search) {
+                        $locQ->where('name', 'like', "%{$search}%")
                             
-                            // Location
-                            ->orWhereHas('location', function ($locQ) use ($search) {
-                                $locQ->where('name', 'like', "%{$search}%")
+                            // Company
+                            ->orWhereHas('company', function ($compQ) use ($search) {
+                                $compQ->where('name', 'like', "%{$search}%")
                                     
-                                    // Company
-                                    ->orWhereHas('company', function ($compQ) use ($search) {
-                                        $compQ->where('name', 'like', "%{$search}%");
+                                    // Region
+                                    ->orWhereHas('region', function ($regQ) use ($search) {
+                                        $regQ->where('name', 'like', "%{$search}%");
                                     });
                             });
                     });
@@ -118,23 +119,23 @@ class CameraCatalogController extends Controller
             $query->whereIn('category_id', $request->categories);
         }
 
-        // Sub Location filter
-        if ($request->filled('sub_locations')) {
-            $query->whereIn('sub_location_id', $request->sub_locations);
-        }
-
-        // Location filter (through sub_location relationship)
-        if ($request->filled('locations')) {
-            $query->whereHas('subLocation', function ($q) use ($request) {
-                $q->whereIn('location_id', $request->locations);
+        // Region filter (through location -> company -> region relationship)
+        if ($request->filled('regions')) {
+            $query->whereHas('location.company', function ($q) use ($request) {
+                $q->whereIn('region_id', $request->regions);
             });
         }
 
-        // Company filter (through sub_location -> location relationship)
+        // Company filter (through location relationship)
         if ($request->filled('companies')) {
-            $query->whereHas('subLocation.location', function ($q) use ($request) {
+            $query->whereHas('location', function ($q) use ($request) {
                 $q->whereIn('company_id', $request->companies);
             });
+        }
+
+        // Location filter
+        if ($request->filled('locations')) {
+            $query->whereIn('location_id', $request->locations);
         }
 
         // Get offset from request (for infinite scroll)
@@ -166,9 +167,9 @@ class CameraCatalogController extends Controller
             'brands',
             'variants',
             'types',
+            'regions',
             'companies',
             'locations',
-            'subLocations',
             'categories',
             'totalCount'
         ));
@@ -183,7 +184,7 @@ class CameraCatalogController extends Controller
             'cameraVariant',
             'type',
             'category',
-            'subLocation.location.company',
+            'location.company.region',
             'cameraDetails'
         ])->findOrFail($id);
 

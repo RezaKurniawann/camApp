@@ -402,7 +402,7 @@
             <!-- Camera Grid -->
             <main class="flex-1 mt-0">
                 @if ($cameras->count() > 0)
-                    <div id="cameraGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div id="cameraGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         @include('partials.camera-cards', ['cameras' => $cameras])
                     </div>
 

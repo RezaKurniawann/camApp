@@ -2,7 +2,7 @@
     <a href="{{ route('camera.show', $camera->id) }}"
         class="group block bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 camera-card cursor-pointer border border-gray-100">
 
-        <div class="relative aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+        <div class="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
             @if ($camera->images && !str_contains($camera->images, 'no-image'))
                 <img src="{{ Storage::url($camera->images) }}" alt="{{ $camera->name }}"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

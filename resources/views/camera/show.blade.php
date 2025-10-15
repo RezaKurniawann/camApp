@@ -235,17 +235,17 @@
                                         id="gallery-{{ Str::slug($captureType) }}">
                                         @foreach ($details as $detail)
                                             @if (isset($detail['image']) && $detail['image'])
-                                                <div class="flex-shrink-0 w-48">
+                                                <div class="flex-shrink-0" style="width: 250px;">
                                                     <div
-                                                        class="bg-gray-100 rounded-lg overflow-hidden aspect-square">
+                                                        class="bg-gray-100 rounded-lg overflow-hidden aspect-[4/3]">
                                                         <img src="{{ Storage::url($detail['image']) }}"
                                                             alt="{{ $detail['description'] ?? $captureType }}"
-                                                            class="w-full h-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                                                            class="w-full h-full object-contain cursor-pointer hover:opacity-90 transition-opacity"
                                                             onclick="openImageModal('{{ Storage::url($detail['image']) }}', '{{ $detail['description'] ?? '' }}')"
                                                             onerror="this.src='/images/no-image.png'">
                                                     </div>
                                                     @if (isset($detail['description']))
-                                                        <p class="text-xs text-gray-600 mt-1 truncate">
+                                                        <p class="text-md text-gray-800 mt-1 truncate">
                                                             {{ $detail['description'] }}</p>
                                                     @endif
                                                 </div>
@@ -319,7 +319,7 @@
         // Gallery scroll function
         function scrollGallery(galleryId, direction) {
             const gallery = document.getElementById('gallery-' + galleryId);
-            const scrollAmount = 208; // width of image (192px) + gap (16px)
+            const scrollAmount = 208; 
             gallery.scrollBy({
                 left: direction * scrollAmount,
                 behavior: 'smooth'

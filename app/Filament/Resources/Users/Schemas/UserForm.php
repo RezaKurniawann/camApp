@@ -14,10 +14,11 @@ class UserForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                TextInput::make('email')
-                    ->label('Email address')
-                    ->email()
+                TextInput::make('nip')
                     ->required(),
+                // TextInput::make('email')
+                //     ->label('Email address')
+                //     ->email(),
                 // DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()

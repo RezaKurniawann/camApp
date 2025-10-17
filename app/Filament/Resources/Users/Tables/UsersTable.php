@@ -18,9 +18,12 @@ class UsersTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
+                TextColumn::make('nip')
+                    ->label('NIP')
                     ->searchable(),
+                // TextColumn::make('email')
+                //     ->label('Email address')
+                //     ->searchable(),
                 // TextColumn::make('emailverified_at')
                 //     ->label('Email Verified At')
                 //     ->searchable(),
